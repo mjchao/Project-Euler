@@ -35,4 +35,5 @@ for a in squares:
         answers.add(test)
 
 print len(answers)
+#print answers
 # 1097343
