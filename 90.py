@@ -35,7 +35,7 @@ def IsValidArrangment(cube1, cube2):
     return False
 
   # 25
-  if (2 in set1 and 5 in set2) or (2 in set2 and 5 in set2):
+  if (2 in set1 and 5 in set2) or (2 in set2 and 5 in set1):
     pass
   else:
     return False
@@ -58,7 +58,8 @@ def IsValidArrangment(cube1, cube2):
   else:
     return False
 
-  if (8 in set1 and 1 in set2) or (8 in set1 and 1 in set2):
+  # 81
+  if (8 in set1 and 1 in set2) or (8 in set2 and 1 in set1):
     pass
   else:
     return False
@@ -69,5 +70,5 @@ for x in itertools.combinations([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 6):
   for y in itertools.combinations([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 6):
     if IsValidArrangment(x, y):
       answer += 1
-print answer
-# 1045
+print answer / 2
+# 1217
