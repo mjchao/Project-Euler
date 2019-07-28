@@ -28,18 +28,22 @@ def HasProductSumSet(n, k):
 
 
 MAX_N = 12000
-curr_lowest = 2
+#MAX_N = 12
 answers = set()
 for i in range(2, MAX_N+1):
   if i % 100 == 0:
     print i
-  while not HasProductSumSet(curr_lowest, i):
-    curr_lowest += 1
-  answers.add(curr_lowest)
+  j = 2
+  while j < 1000000:
+    if HasProductSumSet(j, i):
+      answers.add(j)
+      break
+    j += 1
+  if j == 1000000:
+    print("SOMTHING WENT WRONG")
 
 print sum(answers)
-#144011661
-#print answers
+#7587457
       
 """
 k=2: 4 = 2 x 2 = 2 + 2
