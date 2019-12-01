@@ -1,34 +1,59 @@
-import collections
+import sys
+
 cache = {}
-cache[0] = 1
-cache[1] = 1
 
-MOD = 1000000
+def WaysToSplit(n, k):
+  """Number of ways to partition n using piles of at most size k"""
+  if n == 1 and k >= 1:
+    return 1
+  if n == 0 and k >= 0:
+    return 1
+  if n < k:
+    return WaysToSplit(n, n)
+  if n < 0:
+    print "Something went wrong"
+    sys.exit(1)
+  if k < 0:
+    print "Something went wrong"
+    sys.exit(1)
+  if (n, k) in cache:
+    return cache[(n, k)]
 
+  rtn = 0
 
-sum_cache = {}
-def cumulative_sum(begin, end):
-  pass
+  # add a partition of next_pile_size
+  for next_pile_size in range(1, min(n, k) + 1):
+    rtn += WaysToSplit(n - next_pile_size, next_pile_size)
 
+  cache[(n, k)] = rtn
+  return rtn
 
+# (1)
+print WaysToSplit(1, 1)
 
-def p(n):
-  if n in cache:
-    return cache[n]
+# (1, 1)
+print WaysToSplit(2, 1)
 
-  answer = 0
-  for k in range(1,n+1):
-    tmp1 = k * (3*k - 1) / 2
-    tmp2 = k * (3*k + 1) / 2
-    if 1 <= tmp1 and tmp1 <= n:
-      answer += ((-1) ** (k+1)) * (p(n - tmp1))
-      answer %= MOD
-    if 1 <= tmp2 and tmp2 <= n:
-      answer += ((-1) ** (k+1)) * (p(n - tmp2))
-      answer %= MOD
-  cache[n] = (answer % MOD)
-  return answer
+# (2) or (1, 1)
+print WaysToSplit(2, 2)
 
-for i in range(10000):
-  if p(i) % 1000 == 0:
-    print i, p(i)
+# (1, 1, 1)
+print WaysToSplit(3, 1)
+
+# (2, 1) or (1, 1, 1)
+print WaysToSplit(3, 2)
+
+# (3) or (2, 1) or (1, 1, 1)
+print WaysToSplit(3, 3)
+
+print WaysToSplit(5, 5)
+
+i = 1
+while i < 2000:
+  test = WaysToSplit(i, i)
+  print i, test
+  if test % 1000000 == 0:
+    print "Answer:", i, test
+    break
+  i += 1
+#print WaysToSplit(200, 200)
